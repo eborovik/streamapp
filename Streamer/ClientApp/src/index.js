@@ -1,18 +1,39 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import React from 'react';
+﻿import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import rootReducer from './rootReducer';
+import jwtDecode from 'jwt-decode';
+import { setCurrentUser, setAuthorizationToken } from './actions/Actions';
+import registerServiceWorker from './registerServiceWorker'
+import 'bootstrap/dist/css/bootstrap.css'
 
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const rootElement = document.getElementById('root');
+const store = createStore(
+    rootReducer,
+    compose(
+        applyMiddleware(thunk),
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+);
+
+if (localStorage.jwtToken) {
+    setAuthorizationToken(localStorage.jwtToken);
+    // prevent someone from manually setting a key of 'jwtToken' in localStorage
+    try {
+        store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+    } catch (e) {
+        store.dispatch(setCurrentUser({}))
+    }
+}
 
 ReactDOM.render(
-  <BrowserRouter basename={baseUrl}>
-    <App />
-  </BrowserRouter>,
-  rootElement);
+    <Provider store={store}>
+        <App />
+    </Provider>
+    ,
+    document.getElementById('root')
+);
 
 registerServiceWorker();
-
