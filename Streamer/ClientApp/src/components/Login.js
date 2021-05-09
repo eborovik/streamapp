@@ -21,7 +21,7 @@ class Login extends Component {
         e.preventDefault();
         this.props.login(this.state).then(
             // make sure we use arrow functions to bind `this` correctly
-            (res) => this.props.history.push('/'),
+            (res) => this.props.history.push('/home'),
             (err) => {
                 debugger
             });

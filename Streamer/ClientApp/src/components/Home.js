@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { VideoPlayer } from './VideoPlayer';
+import Add from './Add'
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -14,6 +15,10 @@ export class Home extends Component {
           }]
       }
 
-      return <VideoPlayer {...videoJsOptions} />
+      return (
+          <div>
+          <Add/>
+          <VideoPlayer {...videoJsOptions} /></div>
+      );
   }
 }

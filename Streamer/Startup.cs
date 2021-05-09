@@ -59,6 +59,7 @@ namespace Streamer
             services.AddDbContext<DatabaseContext>();
             services.AddScoped(s => s.GetService<IOptions<Config>>().Value);
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILiveVideoService, LiveVideoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

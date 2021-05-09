@@ -25,7 +25,7 @@ function PublicRoute({ component: Component, isAuthenticated, ...rest }) {
     {...rest}
     render={(props) => isAuthenticated === false
         ? <Component {...props} />
-    : <Redirect to='/home' />}
+    : <Redirect to='/' />}
 />
 )
 }
@@ -36,11 +36,11 @@ class App extends Component {
         <BrowserRouter>
             <div>
                 <NavigationBar />
-                <Switch>
+                <Switch> 
                     <PublicRoute isAuthenticated={this.props.isAuthenticated} path='/login' component={Login} />
                     <PublicRoute isAuthenticated={this.props.isAuthenticated} path='/register' component={Register} />
-                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/home' component={Home} />
-                    <Route render={() => <h3>Not Found 404</h3>} />
+                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/' component={Home} />
+            {/*<Route render={() => <h3>Not Found 404</h3>} />*/}
                 </Switch>
             </div>
         </BrowserRouter>)

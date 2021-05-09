@@ -17,7 +17,7 @@ namespace Streamer.Database
 
         [Required]
         public string PasswordHash { get; set; }
-        public ICollection<LiveVideo> LiveVideos { get; set; }
-        public ICollection<SavedVideo> SavedVideos { get; set; }
+        public ICollection<LiveVideo> LiveVideos { get; set; } = new List<LiveVideo>();
+        public ICollection<SavedVideo> SavedVideos { get; set; } = new List<SavedVideo>();
     }
 }
