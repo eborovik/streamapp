@@ -2,7 +2,6 @@
 import { connect } from 'react-redux';
 import { addLiveVideo } from "../actions/Videos";
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 class Add extends Component {
 
@@ -40,10 +39,7 @@ class Add extends Component {
         );
     }
 }
-// let's add some propTypes for additional validation and readability
-Add.propTypes = {
-    login: PropTypes.func.isRequired
-}
+
 
 // we do not want any state mapped to props, so let's make that first parameter to connect `null`
 export default withRouter(connect(null, { addLiveVideo })(Add));

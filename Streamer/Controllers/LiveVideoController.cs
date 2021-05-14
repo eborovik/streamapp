@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,13 @@ namespace Streamer.Controllers
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
             await _videoService.AddLiveVideo(video, userEmail);
             return Ok();
+        }
+
+        [HttpGet("getall")]
+        public IEnumerable<LiveVideoModel> Get()
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            return _videoService.GetLiveVideos(userEmail);
         }
     }
 }

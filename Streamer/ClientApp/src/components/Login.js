@@ -34,6 +34,7 @@ class Login extends Component {
     render() {
         const { email, password } = this.state;
         return (
+            <div className="inner">
             <form onSubmit={this.onSubmit}>
 
                 <h3>Log in</h3>
@@ -52,7 +53,8 @@ class Login extends Component {
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>
-            </form>
+                </form>
+            </div>
         );
     }
 }

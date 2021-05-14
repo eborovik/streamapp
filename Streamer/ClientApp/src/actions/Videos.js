@@ -8,3 +8,9 @@ export function addLiveVideo(data) {
         return axios.post(`${BASE_URL}/api/livevideo/add`, data);
     }
 }
+
+export function getLiveVideos() {
+    return dispatch => {
+        return axios.get(`${BASE_URL}/api/livevideo/getall`);
+    }
+}

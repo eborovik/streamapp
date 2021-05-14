@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom'
-import { Home } from './components/Home';
+import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import NavigationBar from './components/NavigationBar'

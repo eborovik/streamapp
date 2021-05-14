@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Streamer.Models;
 
 namespace Streamer.Interfaces
 {
     public interface ILiveVideoService
     {
-        public Task AddLiveVideo(LiveVideoModel video, string userEmail);
+        Task AddLiveVideo(LiveVideoModel video, string userEmail);
+        IEnumerable<LiveVideoModel> GetLiveVideos(string userEmail);
     }
 }

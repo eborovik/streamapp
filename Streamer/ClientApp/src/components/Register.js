@@ -42,6 +42,7 @@ class Register extends Component {
     render() {
         const { name, email, password } = this.state;
         return (
+            <div className="inner">
             <form onSubmit={this.onSubmit}>
                 <h3>Register</h3>
 
@@ -76,7 +77,8 @@ class Register extends Component {
                 <p className="forgot-password text-right">
                     Already registered? <a href="/login">log in</a>
                 </p>
-            </form>
+                </form>
+                            </div>
         );
     }
 }

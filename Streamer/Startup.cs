@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -60,6 +61,15 @@ namespace Streamer
             services.AddScoped(s => s.GetService<IOptions<Config>>().Value);
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ILiveVideoService, LiveVideoService>();
+
+            // AutoMapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile<MappingProfile>();
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
