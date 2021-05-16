@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
-const BASE_URL = 'https://localhost:5001'
+const BASE_URL = 'http://localhost:7000'
 
 export function setAuthorizationToken(token) {
     if (token) {

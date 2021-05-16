@@ -13,18 +13,53 @@ namespace Streamer.Services
     {
         private readonly DatabaseContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly Config _config;
 
-        public LiveVideoService(DatabaseContext dbContext, IMapper mapper)
+        public LiveVideoService(DatabaseContext dbContext, IMapper mapper, Config config)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _config = config;
         }  
 
-        public async Task AddLiveVideo(LiveVideoModel video, string userEmail)
+        private async Task<LiveVideoModel> AddLiveVideo(LiveVideoModel video, string userEmail)
         {
+            var streamId = video.StreamId == null ? Guid.NewGuid().ToString() : video.StreamId;
+           
+            var liveVideo = new LiveVideo
+            {
+                Name = video.Name,
+                Url = $"{_config.StreamUrl}/{streamId}.m3u8",
+                StreamId = streamId,
+                Status = Status.Streaming
+            };
             var user = _dbContext.Users.FirstOrDefault(u => u.Email == userEmail);
-            var liveVideo = new LiveVideo{Name = video.Name};
             user.LiveVideos.Add(liveVideo);
+            await _dbContext.SaveChangesAsync();
+
+            video.StreamId = streamId;
+            video.Url = _config.StreamServerUrl + streamId;
+            return video;
+        }
+
+        public async Task<LiveVideoModel> StartStream(LiveVideoModel video, string userEmail)
+        {
+            var liveVideo = _dbContext.LiveVideos.FirstOrDefault(v => v.StreamId == video.StreamId);
+            if (liveVideo == null)
+            {
+                return await AddLiveVideo(video, userEmail);
+            }
+            liveVideo.Status = Status.Streaming;
+            await _dbContext.SaveChangesAsync();
+
+            video.Url = _config.StreamServerUrl + liveVideo.StreamId;
+            return video;
+        }
+
+        public async Task StopStream(string streamId)
+        {
+            var video = _dbContext.LiveVideos.FirstOrDefault(v => v.StreamId == streamId);
+            video.Status = Status.Stopped;
             await _dbContext.SaveChangesAsync();
         }
 

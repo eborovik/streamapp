@@ -7,8 +7,17 @@ namespace Streamer.Database
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Url { get; set; }
+        public string StreamId { get; set; }
+        public string Status { get; set; }
 
         public int UserId { get; set; }
         public User User { get; set; }
+    }
+
+    public static class Status
+    {
+        public static string Streaming = nameof(Streaming);
+        public static string Stopped = nameof(Stopped);
     }
 }

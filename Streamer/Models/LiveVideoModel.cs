@@ -3,5 +3,7 @@
     public class LiveVideoModel
     {
         public string Name { get; set; }
+        public string StreamId { get; set; }
+        public string Url { get; set; }
     }
 }

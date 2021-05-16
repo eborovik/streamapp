@@ -6,7 +6,8 @@ namespace Streamer.Interfaces
 {
     public interface ILiveVideoService
     {
-        Task AddLiveVideo(LiveVideoModel video, string userEmail);
+        Task<LiveVideoModel> StartStream(LiveVideoModel video, string userEmail);
         IEnumerable<LiveVideoModel> GetLiveVideos(string userEmail);
+        Task StopStream(string streamId);
     }
 }

@@ -1,7 +1,7 @@
 ﻿import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-const BASE_URL = 'https://localhost:5001'
+const BASE_URL = 'http://localhost:7000'
 
 export function addLiveVideo(data) {
     return dispatch => {

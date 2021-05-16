@@ -20,11 +20,18 @@ namespace Streamer.Controllers
             _videoService = videoService;
         }
 
-        [HttpPost("add")]
+        [HttpPost("start")]
         public async Task<IActionResult> Add(LiveVideoModel video)
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
-            await _videoService.AddLiveVideo(video, userEmail);
+            var streamData = await _videoService.StartStream(video, userEmail);
+            return Ok(streamData);
+        }
+
+        [HttpGet("stop/{id}")]
+        public async Task<IActionResult> Add(string id)
+        {
+            await _videoService.StopStream(id);
             return Ok();
         }
 
