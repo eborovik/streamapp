@@ -12,7 +12,7 @@ export class Video extends React.Component {
             autoplay: true,
             controls: true,
             sources: [{
-                src: 'http://localhost:8080/live/tests.m3u8',
+                src: this.props.url,
                 type: 'application/x-mpegURL'
             }]
         }

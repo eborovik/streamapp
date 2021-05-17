@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Streamer.Database;
+using Streamer.Hubs;
 using Streamer.Interfaces;
 using Streamer.Services;
 
@@ -32,6 +33,7 @@ namespace Streamer
         {
             services.Configure<Config>(Configuration);
             services.AddControllersWithViews();
+            services.AddSignalR();
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -104,6 +106,7 @@ namespace Streamer
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<StreamHub>("/streamHub");
             });
 
             app.UseSpa(spa =>

@@ -29,7 +29,7 @@ namespace Streamer.Services
             var liveVideo = new LiveVideo
             {
                 Name = video.Name,
-                Url = $"{_config.StreamUrl}/{streamId}.m3u8",
+                Url = $"{_config.StreamUrl}{streamId}.m3u8",
                 StreamId = streamId,
                 Status = Status.Streaming
             };
