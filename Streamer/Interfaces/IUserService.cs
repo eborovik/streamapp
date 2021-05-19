@@ -5,8 +5,8 @@ namespace Streamer.Interfaces
 {
     public interface IUserService
     {
-        public bool CheckUserExists(UserModel user);
-        public Task CreateUser(UserModel user);
-        public string AuthenticateUser(UserModel user);
+        bool CheckUserExists(UserModel user);
+        Task CreateUser(UserModel user);
+        string AuthenticateUser(UserModel user);
     }
 }

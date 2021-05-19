@@ -44,11 +44,18 @@ namespace Streamer.Services
 
         public async Task<LiveVideoModel> StartStream(LiveVideoModel video, string userEmail)
         {
-            var liveVideo = _dbContext.LiveVideos.FirstOrDefault(v => v.StreamId == video.StreamId);
+            LiveVideo liveVideo = null; 
+
+            if (video.StreamId != null)
+            {
+                liveVideo = _dbContext.LiveVideos.FirstOrDefault(v => v.StreamId == video.StreamId);
+            }
+            
             if (liveVideo == null)
             {
                 return await AddLiveVideo(video, userEmail);
             }
+
             liveVideo.Status = Status.Streaming;
             await _dbContext.SaveChangesAsync();
 
@@ -61,6 +68,11 @@ namespace Streamer.Services
             var video = _dbContext.LiveVideos.FirstOrDefault(v => v.StreamId == streamId);
             video.Status = Status.Stopped;
             await _dbContext.SaveChangesAsync();
+        }
+
+        public Task DeleteStream(string streamId)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<LiveVideoModel> GetLiveVideos(string userEmail)

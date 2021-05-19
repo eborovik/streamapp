@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom'
 import Home from './components/Home';
+import Records from './components/Records';
 import Login from './components/Login';
 import Register from './components/Register';
 import NavigationBar from './components/NavigationBar'
@@ -39,7 +40,9 @@ class App extends Component {
                 <Switch> 
                     <PublicRoute isAuthenticated={this.props.isAuthenticated} path='/login' component={Login} />
                     <PublicRoute isAuthenticated={this.props.isAuthenticated} path='/register' component={Register} />
-                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/' component={Home} />
+                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/records' component={Records} />
+                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/' component={Home} />\
+                    
             {/*<Route render={() => <h3>Not Found 404</h3>} />*/}
                 </Switch>
             </div>

@@ -1,13 +1,13 @@
 ﻿import React from 'react';
 import { VideoPlayer } from './VideoPlayer';
-import  Dropdown  from './Dropdown';
+import SavedVideoOptions from './SavedVideoOptions';
 
-export class Video extends React.Component {
+export class SavedVideo extends React.Component {
 
     constructor(props) {
-        super(props);            
-      }    
- 
+        super(props);
+    }
+
     render() {
         const videoJsOptions = {
             autoplay: true,
@@ -21,10 +21,10 @@ export class Video extends React.Component {
         return (
             <div className="video">
                 <p>{this.props.name}</p>
-            
+
                 <VideoPlayer {...videoJsOptions} />
 
-                <Dropdown {...this.props}/>
+                <SavedVideoOptions {...this.props} />
             </div>
         )
     }

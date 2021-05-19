@@ -50,7 +50,6 @@ namespace Streamer.Services
                 return null;
             }
 
-            var passwordHash = PasswordHasher.Hash(user.Password);
             if (!PasswordHasher.Verify(user.Password, registeredUser.PasswordHash))
             {
                 return null;
@@ -63,7 +62,7 @@ namespace Streamer.Services
                 {
                     new Claim(ClaimTypes.Email, user.Email)
                 }),
-                Expires = DateTime.UtcNow.AddHours(2),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };

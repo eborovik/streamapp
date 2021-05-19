@@ -33,7 +33,7 @@ namespace Streamer.Controllers
         }
 
         [HttpGet("stop/{id}")]
-        public async Task<IActionResult> Add(string id)
+        public async Task<IActionResult> StopStream(string id)
         {
             await _videoService.StopStream(id);
             return Ok();
@@ -48,7 +48,7 @@ namespace Streamer.Controllers
         }
 
         [HttpGet("getall")]
-        public IEnumerable<LiveVideoModel> Get()
+        public IEnumerable<LiveVideoModel> GetAll()
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
             return _videoService.GetLiveVideos(userEmail);

@@ -31,7 +31,7 @@ namespace Streamer.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserModel user)
+        public IActionResult Login(UserModel user)
         {
             var token = _userService.AuthenticateUser(user);
             if (token == null)
@@ -40,5 +40,7 @@ namespace Streamer.Controllers
             }
             return Ok(token);
         }
+
+        //TODO  [HttpPost("edit")] ChangeUserInfo
     }
 }
