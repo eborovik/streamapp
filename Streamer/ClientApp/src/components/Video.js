@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { VideoPlayer } from './VideoPlayer';
-import  Dropdown  from './Dropdown';
+import  LiveVideoOptions  from './LiveVideoOptions';
+import { Link } from 'react-router-dom';
 
 export class Video extends React.Component {
 
@@ -17,14 +18,15 @@ export class Video extends React.Component {
                 type: 'application/x-mpegURL'
             }]
         }
-
+         console.log(this.props.url)
         return (
             <div className="video">
-                <p>{this.props.name}</p>
+
+                <Link to={`/records/${this.props.streamId}`}><p>{this.props.name}</p></Link>
             
                 <VideoPlayer {...videoJsOptions} />
 
-                <Dropdown {...this.props}/>
+                <LiveVideoOptions {...this.props}/>
             </div>
         )
     }

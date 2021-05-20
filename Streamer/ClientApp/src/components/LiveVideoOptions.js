@@ -1,26 +1,28 @@
 ﻿import React, { useState } from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { startRecording, stopRecording } from "../actions/Videos";
 
-const Dropdown = (props) => {
+const LiveVideoOptions = (props) => {
     props = props
     const [dropdownOpen, setOpen] = useState(false);
 
     const toggle = () => setOpen(!dropdownOpen);
 
-    const startRecording = (props) => console.log(props.name + 'wwwwwwwwwwwwwwwwwwwwww')
+    const record = (props) => {
+        startRecording(props.streamId)          
+    }
 
     return (
         <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle caret>
                 Button Dropdown
       </DropdownToggle>
-            <DropdownMenu>                
-                <DropdownItem onClick={() => startRecording(props)}>Start recording</DropdownItem>                
-                <DropdownItem>Stop recording</DropdownItem>
-                
+            <DropdownMenu>
+                <DropdownItem onClick={() => record(props)}>Start recording</DropdownItem>                
+                <DropdownItem onClick={() => stopRecording(props.streamId)}>Stop recording</DropdownItem>                
             </DropdownMenu>
         </ButtonDropdown>
     );
 }
 
-export default Dropdown;
+export default LiveVideoOptions;

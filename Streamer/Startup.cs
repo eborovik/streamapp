@@ -64,6 +64,8 @@ namespace Streamer
             services.AddScoped(s => s.GetService<IOptions<Config>>().Value);
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ILiveVideoService, LiveVideoService>();
+            services.AddScoped<ISavedVideoService, SavedVideoService>();
+            services.AddSingleton<IHubConnectionManager, HubConnectionManager>();
 
             // AutoMapper Configurations
             var mapperConfig = new MapperConfiguration(mc =>

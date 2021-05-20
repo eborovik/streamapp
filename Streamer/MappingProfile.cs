@@ -9,6 +9,7 @@ namespace Streamer
         public MappingProfile()
         {
             CreateMap<LiveVideo, LiveVideoModel>();
+            CreateMap<SavedVideo, SavedVideoModel>();
         }
     }
 }

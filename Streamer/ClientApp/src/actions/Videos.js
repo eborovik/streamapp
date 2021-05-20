@@ -1,5 +1,4 @@
 ﻿import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 
 const BASE_URL = 'http://localhost:7000'
 
@@ -13,4 +12,20 @@ export function getLiveVideos() {
     return dispatch => {
         return axios.get(`${BASE_URL}/api/livevideo/getall`);
     }
+}
+
+export function getSavedVideos(streamId) {
+    return dispatch => {
+        return axios.get(`${BASE_URL}/api/savedvideo/getall/${streamId}`);
+    }
+}
+
+export function startRecording(streamId) {
+    console.log("start recording")
+    axios.get(`${BASE_URL}/api/livevideo/record/${streamId}`);
+    
+}
+
+export function stopRecording(streamId) {
+    return axios.get(`${BASE_URL}/api/livevideo/stoprecord/${streamId}`);
 }

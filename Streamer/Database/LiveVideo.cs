@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Streamer.Database
 {
@@ -10,6 +11,8 @@ namespace Streamer.Database
         public string Url { get; set; }
         public string StreamId { get; set; }
         public string Status { get; set; }
+        public bool IsRecording { get; set; }
+        public ICollection<SavedVideo> SavedVideos { get; set; } = new List<SavedVideo>();
 
         public int UserId { get; set; }
         public User User { get; set; }

@@ -1,21 +1,14 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace Streamer.Database
+namespace Streamer.Models
 {
-    public class SavedVideo
+    public class SavedVideoModel
     {
-        [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StartedTime { get; set; }
         public string DeviceName { get; set; }
         public string VideoUrl { get; set; }
         public string FilePath { get; set; }
         public string AdditionalInfo { get; set; }
-        public bool IsRecordingComplete { get; set; }
-
-        public int LiveVideoId { get; set; }
-        public LiveVideo LiveVideo { get; set; }
     }
 }

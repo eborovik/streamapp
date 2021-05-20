@@ -1,8 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { SavedVideo } from './SavedVideo';
-import { getLiveVideos } from "../actions/Videos";
+import { getSavedVideos } from "../actions/Videos";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { SavedVideo } from './SavedVideo';
 
 class Records extends Component {
     static displayName = Records.name;
@@ -15,16 +15,15 @@ class Records extends Component {
         this.createItemList.bind(this)
     }
 
-    componentDidMount() {
+    componentDidMount() {        
         this.fetchVideos();
     }
 
-    fetchVideos = () => {
+    fetchVideos = () => {        
         this.setState({ ...this.state, isFetching: true });
-        this.props.getLiveVideos()
+        this.props.getSavedVideos(this.props.match.params.streamId)
             .then(response => {
                 this.setState({ data: response.data, isFetching: false })
-                console.log(response.data)
             })
             .catch(e => {
                 console.log(e);
@@ -48,7 +47,6 @@ class Records extends Component {
         return rows
     }
 
-
     render() {
 
         let rows = this.createItemList()
@@ -71,4 +69,4 @@ class Records extends Component {
     }
 }
 
-export default withRouter(connect(null, { getLiveVideos })(Records));
+export default withRouter(connect(null, { getSavedVideos })(Records));

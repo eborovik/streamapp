@@ -16,12 +16,18 @@ namespace Streamer.Controllers
     public class LiveVideoController : ControllerBase
     {
         private readonly ILiveVideoService _videoService;
+        private readonly ISavedVideoService _savedVideoService;
         private readonly IHubContext<StreamHub> _hubContext;
+        private readonly IHubConnectionManager _connectionManager;
 
-        public LiveVideoController(ILiveVideoService videoService, IHubContext<StreamHub> hubContext)
+        public LiveVideoController(ILiveVideoService videoService, 
+            ISavedVideoService savedVideoService, IHubContext<StreamHub> hubContext, 
+            IHubConnectionManager connectionManager)
         {
             _videoService = videoService;
+            _savedVideoService = savedVideoService;
             _hubContext = hubContext;
+            _connectionManager = connectionManager;
         }
 
         [HttpPost("start")]
@@ -36,6 +42,23 @@ namespace Streamer.Controllers
         public async Task<IActionResult> StopStream(string id)
         {
             await _videoService.StopStream(id);
+            return Ok();
+        }
+
+        [HttpGet("record/{id}")]
+        public async Task<IActionResult> StartRecording(string id)
+        {
+            await _hubContext.Clients.Client(_connectionManager.GetConnection(id)).SendAsync("ReceiveMessage",
+                "hello", "CRUELworld");
+            await _savedVideoService.StartRecording(id);
+            
+            return Ok();
+        }
+
+        [HttpGet("stoprecord/{id}")]
+        public async Task<IActionResult> StopRecording(string id)
+        {
+            await _savedVideoService.StopRecording(id);
             return Ok();
         }
 

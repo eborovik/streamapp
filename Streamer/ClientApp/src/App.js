@@ -40,8 +40,8 @@ class App extends Component {
                 <Switch> 
                     <PublicRoute isAuthenticated={this.props.isAuthenticated} path='/login' component={Login} />
                     <PublicRoute isAuthenticated={this.props.isAuthenticated} path='/register' component={Register} />
-                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/records' component={Records} />
-                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/' component={Home} />\
+                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/records/:streamId' component={Records}/>
+                    <PrivateRoute isAuthenticated={this.props.isAuthenticated} path='/' component={Home} />
                     
             {/*<Route render={() => <h3>Not Found 404</h3>} />*/}
                 </Switch>
