@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { VideoPlayer } from './VideoPlayer';
+import {ReactFlvPlayer} from 'react-flv-player'
 import SavedVideoOptions from './SavedVideoOptions';
 
 export class SavedVideo extends React.Component {
@@ -9,20 +9,12 @@ export class SavedVideo extends React.Component {
     }
 
     render() {
-        const videoJsOptions = {
-            autoplay: true,
-            controls: true,
-            sources: [{
-                src: this.props.url,
-                type: 'application/x-mpegURL'
-            }]
-        }
-
+        
         return (
             <div className="video">
                 <p>{this.props.name}</p>
 
-                <VideoPlayer {...videoJsOptions} />
+                <ReactFlvPlayer url = {this.props.videoUrl}  height="200px" />               
 
                 <SavedVideoOptions {...this.props} />
             </div>

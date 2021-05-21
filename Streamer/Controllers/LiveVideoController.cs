@@ -19,15 +19,17 @@ namespace Streamer.Controllers
         private readonly ISavedVideoService _savedVideoService;
         private readonly IHubContext<StreamHub> _hubContext;
         private readonly IHubConnectionManager _connectionManager;
+        private readonly Config _config;
 
         public LiveVideoController(ILiveVideoService videoService, 
             ISavedVideoService savedVideoService, IHubContext<StreamHub> hubContext, 
-            IHubConnectionManager connectionManager)
+            IHubConnectionManager connectionManager, Config config)
         {
             _videoService = videoService;
             _savedVideoService = savedVideoService;
             _hubContext = hubContext;
             _connectionManager = connectionManager;
+            _config = config;
         }
 
         [HttpPost("start")]
@@ -48,8 +50,9 @@ namespace Streamer.Controllers
         [HttpGet("record/{id}")]
         public async Task<IActionResult> StartRecording(string id)
         {
-            await _hubContext.Clients.Client(_connectionManager.GetConnection(id)).SendAsync("ReceiveMessage",
-                "hello", "CRUELworld");
+            await _hubContext.Clients.Client(_connectionManager.GetConnection(id)).SendAsync("StartRecording",
+                _config.RecordStreamUrl + id);
+
             await _savedVideoService.StartRecording(id);
             
             return Ok();
@@ -58,16 +61,11 @@ namespace Streamer.Controllers
         [HttpGet("stoprecord/{id}")]
         public async Task<IActionResult> StopRecording(string id)
         {
+            await _hubContext.Clients.Client(_connectionManager.GetConnection(id)).SendAsync("StartRecording",
+                _config.StreamServerUrl + id);
+
             await _savedVideoService.StopRecording(id);
             return Ok();
-        }
-
-        [AllowAnonymous]
-        [HttpGet("hub")]
-        public async Task sendmsg()
-        {
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", "hello", "world");
-            //return Ok();
         }
 
         [HttpGet("getall")]

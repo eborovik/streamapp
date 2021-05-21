@@ -51,7 +51,6 @@ namespace Streamer
                     ValidateIssuer = false
                 };
             });
-            
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Streamer", Version = "V1" }));
 
@@ -65,6 +64,7 @@ namespace Streamer
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ILiveVideoService, LiveVideoService>();
             services.AddScoped<ISavedVideoService, SavedVideoService>();
+            services.AddScoped<IFileService, VideoFileService>();
             services.AddSingleton<IHubConnectionManager, HubConnectionManager>();
 
             // AutoMapper Configurations

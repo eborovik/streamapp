@@ -14,11 +14,16 @@ namespace Streamer.Services
     {
         private readonly DatabaseContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IFileService _fileService;
+        private readonly Config _config;
 
-        public SavedVideoService(DatabaseContext dbContext, IMapper mapper)
+        public SavedVideoService(DatabaseContext dbContext, IMapper mapper, 
+            IFileService fileService, Config config)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _fileService = fileService;
+            _config = config;
         }
 
         public async Task StartRecording(string streamId)
@@ -44,10 +49,13 @@ namespace Streamer.Services
 
             if (liveVideo.IsRecording)
             {
+                var filename = _fileService.Move(streamId);
+
                 var savedVideo = liveVideo.SavedVideos
                     .FirstOrDefault(v => v.IsRecordingComplete == false);
                 liveVideo.IsRecording = false;
                 savedVideo.IsRecordingComplete = true;
+                savedVideo.VideoUrl = _config.RecordsUrl + filename;
                 await _dbContext.SaveChangesAsync();
             }
         }
