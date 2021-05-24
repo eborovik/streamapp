@@ -40,7 +40,5 @@ namespace Streamer.Controllers
             }
             return Ok(token);
         }
-
-        //TODO  [HttpPost("edit")] ChangeUserInfo
     }
 }

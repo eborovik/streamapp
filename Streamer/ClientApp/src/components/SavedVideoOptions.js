@@ -5,21 +5,21 @@ const SavedVideoOptions = (props) => {
     props = props
     const [dropdownOpen, setOpen] = useState(false);
 
-    const toggle = () => setOpen(!dropdownOpen);
-
-    const startRecording = (props) => console.log(props.name + 'wwwwwwwwwwwwwwwwwwwwww')
+    const toggle = () => setOpen(!dropdownOpen);    
 
     return (
-        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle caret>
-                Button Dropdown
-      </DropdownToggle>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} >
+            <DropdownToggle caret size="sm">
+                Options
+           </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem onClick={() => startRecording(props)}>Edit</DropdownItem>
+                <DropdownItem onClick={() => console.log(props)}>Edit</DropdownItem>
                 <DropdownItem>Delete</DropdownItem>
 
             </DropdownMenu>
         </ButtonDropdown>
+        </div>        
     );
 }
 

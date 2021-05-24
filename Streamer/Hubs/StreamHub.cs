@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Streamer.Interfaces;
@@ -14,10 +13,6 @@ namespace Streamer.Hubs
         public StreamHub(IHubConnectionManager connectionManager)
         {
             _connectionManager = connectionManager;
-        }
-
-        public async Task SendMessage(string user, string message)
-        {
         }
 
         public void Register(string streamId)

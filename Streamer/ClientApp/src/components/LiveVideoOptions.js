@@ -13,15 +13,17 @@ const LiveVideoOptions = (props) => {
     }
 
     return (
-        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle caret>
-                Button Dropdown
-      </DropdownToggle>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+            <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+            <DropdownToggle caret size="sm">
+                Options
+            </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem onClick={() => record(props)}>Start recording</DropdownItem>                
                 <DropdownItem onClick={() => stopRecording(props.streamId)}>Stop recording</DropdownItem>                
             </DropdownMenu>
         </ButtonDropdown>
+        </div>        
     );
 }
 

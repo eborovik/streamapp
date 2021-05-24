@@ -34,7 +34,7 @@ namespace Streamer.Services
                 liveVideo.IsRecording = true;
                 var savedVideo = new SavedVideo
                 {
-                    Name = $"record-{DateTime.Today}"
+                    Name = $"record-{DateTime.UtcNow}"
                 };
                 liveVideo.SavedVideos.Add(savedVideo);
                 await _dbContext.SaveChangesAsync();

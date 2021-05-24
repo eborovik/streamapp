@@ -8,7 +8,9 @@ namespace Streamer.Services
         private Dictionary<string, string> _connections = new Dictionary<string, string>();
         public string GetConnection(string streamId)
         {
-            return _connections[streamId];
+            string connectionId;
+            _connections.TryGetValue(streamId, out connectionId);
+            return connectionId;
         }
 
         public void AddConnection(string streamId, string connectionId)
@@ -23,7 +25,7 @@ namespace Streamer.Services
 
         public void RemoveConnection(string streamId)
         {
-            throw new System.NotImplementedException();
+            _connections.Remove(streamId);
         }
     }
 }
