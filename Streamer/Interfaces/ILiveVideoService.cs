@@ -9,6 +9,6 @@ namespace Streamer.Interfaces
         Task<LiveVideoModel> StartStream(LiveVideoModel video, string userEmail);
         IEnumerable<LiveVideoModel> GetLiveVideos(string userEmail);
         Task StopStream(string streamId);
-        Task DeleteStream(string streamId);
+        Task<bool> DeleteStream(string streamId);
     }
 }

@@ -29,3 +29,7 @@ export function startRecording(streamId) {
 export function stopRecording(streamId) {
     return axios.get(`${BASE_URL}/api/livevideo/stoprecord/${streamId}`);
 }
+
+export function deleteStream(streamId) {
+    return axios.delete(`${BASE_URL}/api/livevideo/${streamId}`);
+}

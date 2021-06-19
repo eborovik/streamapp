@@ -74,5 +74,18 @@ namespace Streamer.Controllers
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
             return _videoService.GetLiveVideos(userEmail);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStream(string id)
+        {
+            if (await _videoService.DeleteStream(id))
+            {
+                await _hubContext.Clients.Client(_connectionManager.GetConnection(id)).SendAsync("StopStream");
+                return Ok();
+            }
+
+            return Problem("Cannot delete stream with records");
+
+        }
     }
 }

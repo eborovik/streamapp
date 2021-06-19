@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Streamer.Database;
 using Streamer.Interfaces;
 using Streamer.Models;
@@ -70,9 +71,20 @@ namespace Streamer.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task DeleteStream(string streamId)
+        public async Task<bool> DeleteStream(string streamId)
         {
-            throw new NotImplementedException();
+            var liveVideo = _dbContext.LiveVideos
+                .Include(v => v.SavedVideos)
+                .FirstOrDefault(v => v.StreamId == streamId);
+
+            if (liveVideo.SavedVideos.Count == 0)
+            {
+                _dbContext.LiveVideos.Remove(liveVideo);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
         public IEnumerable<LiveVideoModel> GetLiveVideos(string userEmail)
